@@ -1,0 +1,34 @@
+import java.awt.*;
+import java.util.Random;
+
+public class NinjaCat extends Critter {
+    private Color color;
+    private String name;
+    private Random rand;
+
+    public NinjaCat() {
+        rand = new Random();
+        color = Color.BLACK; // NinjaCat is stealthy and blends in the dark
+        name = "NC"; // Custom string representation
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public String toString() {
+        return name;
+    }
+
+    public Action getMove(CritterInfo info) {
+        if (info.frontThreat()) {
+            return Action.INFECT;
+        } else if (info.getFront() == Neighbor.EMPTY) {
+            return Action.HOP;
+        } else if (info.getLeft() == Neighbor.OTHER || info.leftThreat()) {
+            return Action.LEFT;
+        } else {
+            return Action.RIGHT;
+        }
+    }
+}
